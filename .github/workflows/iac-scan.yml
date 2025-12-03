@@ -29,6 +29,9 @@ jobs:
         run: |
           echo "Running Checkov IaC scan..."
           checkov -d . 
+      - name: Generate JSON report
+        run: |
+          checkov -d . -o json > checkov_report.json || true
 
       - name: Upload Checkov Report
         uses: actions/upload-artifact@v4
@@ -36,6 +39,4 @@ jobs:
           name: checkov-report
           path: checkov_report.json
 
-      - name: Generate JSON report
-        run: |
-          checkov -d . -o json > checkov_report.json || true
+      
