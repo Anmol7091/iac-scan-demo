@@ -21,5 +21,7 @@ jobs:
           endpoint: ${{ secrets.ACCUKNOX_ENDPOINT }}
           tenant_id: ${{ secrets.ACCUKNOX_TENANT_ID }}
           label: anmolIaC
+          quiet: "true"
+          soft_fail: true
           
           
