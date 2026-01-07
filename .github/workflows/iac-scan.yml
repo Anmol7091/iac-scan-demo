@@ -1,42 +1,25 @@
-name: IaC Scan with Checkov
+name: AccuKnox IaC Scan Workflow
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-permissions:
-  contents: read
+    branches:
+      - 'main'
 
 jobs:
-  checkov-scan:
+  tests:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@main
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Accuknox IaC
+        uses: accuknox/iac-scan-action@v0.0.1
         with:
-          python-version: '3.x'
-
-      - name: Install Checkov
-        run: |
-          pip install checkov
-
-      - name: Run Checkov Scan
-        run: |
-          echo "Running Checkov IaC scan..."
-          checkov -d . 
-      - name: Generate JSON report
-        run: |
-          checkov -d . -o json > checkov_report.json || true
-
-      - name: Upload Checkov Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: checkov-report
-          path: checkov_report.json
-
-      
+          directory: ./
+          output_file_path: ./results
+          token: ${{ secrets.ACCUKNOX_TOKEN }}
+          endpoint: ${{ secrets.ACCUKNOX_ENDPOINT }}
+          tenant_id: ${{ secrets.ACCUKNOX_TENANT_ID }}
+          label: anmolIaC
+          
+          
