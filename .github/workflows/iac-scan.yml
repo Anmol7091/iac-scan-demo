@@ -19,8 +19,7 @@ jobs:
           output_file_path: ./results
           token: ${{secrets.ACCUKNOX_TOKEN}}
           endpoint: ${{secrets.ACCUKNOX_ENDPOINT}}
-          tenant_id: ${{secrets.ACCUKNOX_TENANT_ID}}
-          label: anmolIaC
+          label: testiac
           quiet: "true"
           soft_fail: true
           
